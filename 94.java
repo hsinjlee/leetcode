@@ -48,7 +48,7 @@ class Solution {
     }
 }
 
-//Iterative
+//Iteratively
 
 /**
  * Definition for a binary tree node.
