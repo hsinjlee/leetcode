@@ -32,3 +32,31 @@ A.length is even
 -100000 <= A[i] <= 100000
 */
 
+class Solution {
+    public boolean canReorderDoubled(int[] A) {
+        Map<Integer, Integer> map = new HashMap();
+        for (int i : A){
+            map.put(i, map.getOrDefault(i, 0)+1);
+        }
+        Integer[] I = new Integer[A.length];
+        for (int i = 0; i < A.length; i++){
+            I[i] = A[i];
+        }
+        Arrays.sort(I, Comparator.comparingInt(Math::abs));
+        for (int i : I){
+            if (map.get(i) == 0){
+                continue;
+            }
+            if (map.getOrDefault(i,0) <= 0){
+                return false;
+            }
+            if (map.getOrDefault(2*i,0) <= 0){
+                return false;
+            }
+            map.put(i, map.get(i) -1);
+            map.put(2* i, map.get(2* i) -1);
+            
+        }
+        return true;
+    }
+}
