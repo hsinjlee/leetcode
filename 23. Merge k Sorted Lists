@@ -44,6 +44,9 @@ class Solution1 {
     }
 }
 
+//Time: O(nlog(k))
+//Space: O(k)
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
