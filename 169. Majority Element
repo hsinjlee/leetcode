@@ -58,3 +58,20 @@ class Solution2 {
     }
 }
 
+class Solution3 {
+    public int majorityElement(int[] nums) {
+        int counter = 0;
+        int candidate = nums[0];
+        for (int i: nums){
+            if (counter == 0){
+                candidate = i;
+            }
+            if (candidate == i){
+                counter++;
+            } else {
+                counter--;
+            }
+        }
+        return candidate;
+    }
+}
