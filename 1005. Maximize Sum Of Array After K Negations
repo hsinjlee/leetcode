@@ -65,3 +65,20 @@ class Solution2 {
         return K % 2 == 0 ? sum : sum - 2* min;
     }
 }
+
+
+class Solution3 {
+    public int largestSumAfterKNegations(int[] A, int K) {
+        Arrays.sort(A);
+        for (int i = 0; i < A.length && K > 0 && A[i] < 0; i++, K--){
+            A[i] = - A[i];
+        }
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+        for (int i: A){
+            sum += i;
+            min = Math.min(min, i);
+        }
+        return sum - (K % 2) * 2* min;
+    }
+}
