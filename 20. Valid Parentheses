@@ -54,6 +54,9 @@ class Solution {
     }
 }
 
+Time: O(n)
+Space: O(n)
+
 class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack();
