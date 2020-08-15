@@ -62,7 +62,7 @@ class Solution {
 }
 
 //time: O(nlg(n))
-//Space: O(k), k is distinct number of element
+//Space: O(k), k is distinct number of elements
 
 class Solution {
     public boolean canReorderDoubled(int[] A) {
