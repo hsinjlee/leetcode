@@ -79,3 +79,34 @@ class Solution2 {
         return dummy.next;
     }
 }
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue <ListNode> p = new PriorityQueue<>((Comparator<ListNode>) (o1, o2) -> o1.val - o2.val);
+        for (ListNode head : lists){
+            while(head != null){
+                p.add(head);
+                head = head.next;
+            }
+        }
+        ListNode dummy = new ListNode(0);
+        ListNode head = dummy;
+        while(!p.isEmpty()){
+            ListNode curr = p.remove();
+            head.next = new ListNode(curr.val);
+            head = head.next;
+        }
+        return dummy.next;
+    }
+}
