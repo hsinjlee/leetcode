@@ -40,3 +40,11 @@ class Solution {
         return true;
     }
 }
+
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        count = Counter(arr)
+        frequence = count.values()
+        return len(frequence) == len(set(frequence))
+        
