@@ -39,6 +39,8 @@ Constraints:
 1 <= word1.length, word2.length <= 100
 word1 and word2 consist of lowercase English letters.
 
+==Python==
+
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
         merged = []
@@ -51,3 +53,29 @@ class Solution:
             i += 1
         return "".join(merged)
             
+==c==
+
+char * mergeAlternately(char * word1, char * word2){
+    int len1 = strlen(word1);
+    int len2 = strlen(word2);
+    int totalLen = len1 + len2;
+
+    char* merged = (char*)malloc((totalLen + 1)* sizeof(char));
+    int i = 0, j = 0, k = 0;
+    while (i < len1 && j < len2) {
+        merged[k++] = word1[i++];
+        merged[k++] = word2[j++];
+    }
+
+    while (i < len1) {
+        merged[k++] = word1[i++];
+    }
+
+    while (j < len2) {
+        merged[k++] = word2[j++];
+    }
+
+    merged[k] = '\0';
+
+    return merged;
+}
