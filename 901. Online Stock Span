@@ -63,4 +63,53 @@ class StockSpanner:
 # obj = StockSpanner()
 # param_1 = obj.next(price)
 
+//c
 
+//Time O(1)
+//Space: O(n)
+typedef struct {
+    int price;
+    int span;
+} StackNode;
+typedef struct {
+    StackNode* stack;
+    int top;
+    int capacity;
+} StockSpanner;
+
+
+StockSpanner* stockSpannerCreate() {
+    StockSpanner* obj = (StockSpanner*)malloc(sizeof(StockSpanner));
+    obj->capacity = 100000;
+    obj->stack = (StackNode*)malloc(obj->capacity * sizeof(StackNode));
+    obj->top = -1;
+    return obj;
+}
+
+int stockSpannerNext(StockSpanner* obj, int price) {
+    int span = 1;
+    while(obj->top >= 0&& obj->stack[obj->top].price <= price){
+        span += obj->stack[obj->top].span;
+        obj->top--;
+    }
+    obj->top++;
+    obj->stack[obj->top].price = price;
+    obj->stack[obj->top].span = span;
+    return span;
+ }
+
+void stockSpannerFree(StockSpanner* obj) {
+    free(obj->stack);
+    free(obj);
+}
+
+/**
+ * Your StockSpanner struct will be instantiated and called as such:
+ * StockSpanner* obj = stockSpannerCreate();
+ * int param_1 = stockSpannerNext(obj, price);
+ 
+ * stockSpannerFree(obj);
+*/
+
+
+//
