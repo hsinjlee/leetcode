@@ -34,3 +34,200 @@ Constraints:
 1 <= word.length, prefix.length <= 2000
 word and prefix consist only of lowercase English letters.
 At most 3 * 104 calls in total will be made to insert, search, and startsWith.
+
+##Python 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end_of_word = False
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+    def insert(self, word: str) -> None:
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.is_end_of_word = True
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        return node.is_end_of_word
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for char in prefix:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        return True
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+
+//c++
+class TrieNode {
+public:
+    TrieNode* children[26];
+    bool isEndOfWord;
+
+    TrieNode() {
+        isEndOfWord = false;
+        for (int i = 0; i < 26; i++) {
+            children[i] = nullptr;
+        }
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    void insert(string word) {
+        TrieNode* node = root;
+        for (char c: word){
+            int index = c - 'a';
+            if (node ->children[index] == nullptr) {
+                node->children[index] = new TrieNode();
+            }
+            node = node->children[index];
+        }
+        node->isEndOfWord = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* node = root;
+        for (char c:word){
+            int index = c - 'a';
+            if (node->children[index]== nullptr){
+                return false;
+            }
+            node = node->children[index];
+        }
+        return node->isEndOfWord;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* node = root;
+        for (char c:prefix){
+            int index = c - 'a';
+            if (node->children[index] == nullptr){
+                return false;
+            }
+            node = node->children[index];
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
+
+//c
+typedef struct TrieNode {
+    struct TrieNode* children[26];
+    bool isEndOfWord;
+} TrieNode;
+
+typedef struct {
+    TrieNode* root;
+} Trie;
+
+TrieNode* createTrieNode() {
+    TrieNode* node = (TrieNode*)malloc(sizeof(TrieNode));
+    node->isEndOfWord = false;
+    for (int i = 0; i < 26; i++) {
+        node->children[i] = NULL;
+    }
+    return node;
+}
+
+Trie* trieCreate() {
+   Trie* trie = (Trie*)malloc(sizeof(Trie));
+   trie->root = createTrieNode();
+   return trie; 
+}
+
+void trieInsert(Trie* obj, char* word) {
+    TrieNode* node = obj->root;
+    int len = strlen(word);
+    for (int i = 0; i < len; i++){
+        int index = word[i] - 'a';
+        if (node->children[index] == NULL ){
+            node->children[index] = createTrieNode();
+        }
+        node = node->children[index];
+    }
+    node->isEndOfWord = true;
+}
+
+bool trieSearch(Trie* obj, char* word) {
+    TrieNode* node = obj->root;
+    int len = strlen(word);
+    for (int i = 0; i < len; i++) {
+        int index = word[i] - 'a';
+        if (node->children[index] == NULL) {
+            return false;
+        }
+        node = node->children[index];
+    }
+    return node->isEndOfWord;
+}
+
+bool trieStartsWith(Trie* obj, char* prefix) {
+    TrieNode* node = obj->root;
+    int len = strlen(prefix);
+    for (int i = 0; i < len; i++){
+        int index = prefix[i] - 'a';
+        if (node->children[index] == NULL) {
+            return false;
+        }
+        node = node->children[index];
+    }
+    return true;
+}
+
+void freeTrieNode(TrieNode* node){
+    if (node == NULL) return;
+    for (int i = 0; i < 26; i++){
+        if (node->children[i] != NULL){
+            freeTrieNode(node->children[i]);
+        }
+    }
+    free(node);
+}
+
+void trieFree(Trie* obj) {
+    freeTrieNode(obj->root);
+    free(obj);
+}
+
+/**
+ * Your Trie struct will be instantiated and called as such:
+ * Trie* obj = trieCreate();
+ * trieInsert(obj, word);
+ 
+ * bool param_2 = trieSearch(obj, word);
+ 
+ * bool param_3 = trieStartsWith(obj, prefix);
+ 
+ * trieFree(obj);
+*/
