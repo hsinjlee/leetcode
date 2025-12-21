@@ -36,3 +36,36 @@ Follow up:
 It is very easy to come up with a solution with a runtime of O(n log n). Can you do it in linear time O(n) and possibly in a single pass?
 Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
 
+##python
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        for i in range(1, n + 1):
+            ans[i] = ans[i>>1] + (i & 1)
+        return ans
+
+//c++
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> ans(n + 1, 0);
+        for (int i = 1; i <= n; i++) {
+            ans[i] = ans[i >> 1] + (i & 1);
+        }
+        return ans;
+    }
+};
+
+//c
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* countBits(int n, int* returnSize) {
+    *returnSize = n + 1;
+    int* ans = (int*)malloc((n + 1) * sizeof(int));
+    ans[0] = 0;
+    for (int i = 1; i <= n; i++){
+        ans[i] = ans[i >> 1] + (i & 1);
+    }
+    return ans;
+}
