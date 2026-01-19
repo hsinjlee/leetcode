@@ -25,3 +25,78 @@ Output: 1
 Constraints:
 
 1 <= n <= 1000
+
+#python
+#space optimized O(n) time O(1) space
+class Solution:
+    def numTilings(self, n: int) -> int:
+        MOD = 10**9 + 7
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        dp_prev2 = 1
+        dp_prev1 = 2
+        partial_prev2 = 0
+        partial_prev1 = 1
+        for i in range(3, n + 1):
+            dp_curr = (dp_prev1 + dp_prev2 + 2 * partial_prev1) % MOD
+            partial_curr = (dp_prev2 + partial_prev1) % MOD
+
+            dp_prev2 = dp_prev1
+            dp_prev1 = dp_curr
+            partial_prev2 = partial_prev1
+            partial_prev1 = partial_curr
+
+        return dp_prev1
+
+//c++
+//space optimized O(n) time, O(1) space
+class Solution {
+public:
+    int numTilings(int n) {
+        const int MOD = 1e9 + 7;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+
+        long long dp_prev2 = 1;
+        long long dp_prev1 = 2;
+        long long partial_prev2 = 0;
+        long long partial_prev1 = 1;
+
+        for (int i = 3; i <= n; i++){
+            long long dp_curr = (dp_prev1 + dp_prev2 + 2 * partial_prev1) % MOD;
+            long long partial_curr = (dp_prev2 + partial_prev1) % MOD;
+
+            dp_prev2 = dp_prev1;
+            dp_prev1 = dp_curr;
+            partial_prev2 = partial_prev1;
+            partial_prev1 = partial_curr;
+        }
+        return dp_prev1;
+    }
+};
+
+//c
+//space optimized O(n) time O(1) space
+int numTilings(int n) {
+    const int MOD = 1000000007;
+    if (n == 1) return 1;
+    if (n == 2) return 2;
+
+    long long dp_prev2 = 1;
+    long long dp_prev1 = 2;
+    long long partial_prev2 = 0;
+    long long partial_prev1 = 1;
+
+    for (int i = 3; i <= n; i++){
+        long long dp_curr = (dp_prev1 + dp_prev2 + 2 * partial_prev1) % MOD;
+        long long partial_curr = (dp_prev2 + partial_prev1) % MOD;
+        dp_prev2 = dp_prev1;
+        dp_prev1 = dp_curr;
+        partial_prev2 = partial_prev1;
+        partial_prev1 = partial_curr;
+    }
+    return (int)dp_prev1;
+
+}
