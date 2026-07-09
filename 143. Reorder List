@@ -29,3 +29,31 @@ Constraints:
 The number of nodes in the list is in the range [1, 5 * 104].
 1 <= Node.val <= 1000
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        slow, fast = head, head
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        prev, curr = None, slow.next
+        slow.next = None
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        first, second = head, prev
+        while second:
+            tm1, tm2 = first.next, second.next
+            first.next = second
+            second.next = tm1
+            first, second = tm1, tm2
+            #TC O(n) SC O(1)
